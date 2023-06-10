@@ -17,10 +17,10 @@ export const Game = (game, onShow) => {
 export const List = () => {
     const [games, setGames] = useState([]);
     const [activeGame, setActiveGame] = useState(null);
-
+    console.log(process.env.REACT_APP_API_ENDPOINT)
     useEffect(() => {
         const getGames = async () => {
-            const resp = await fetch('https://api.chill.ws/games/list',
+            const resp = await fetch('https://games-stage.shagreel.workers.dev/games/list',//`${process.env.REACT_APP_API_ENDPOINT}/games/list`,
                 {
                     credentials: 'include',
                     headers: {'x-cfp': Cookies.get('CFP-Auth-Key')}

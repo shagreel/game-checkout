@@ -6,7 +6,7 @@ export const InteractionModal = (props) => {
     const [email, setEmail] = useState('');
 
     const borrowGame = async () => {
-        await fetch('https://api.chill.ws/games/borrow', {
+        await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/borrow`, {
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -35,7 +35,7 @@ export const InteractionModal = (props) => {
     };
 
     const returnGame = async () => {
-        await fetch('https://api.chill.ws/games/return', {
+        await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/return`, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json',

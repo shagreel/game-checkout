@@ -31,7 +31,7 @@ export const Admin = () => {
         if (games.length === 0) {
             getGames();
         }
-    }, []);
+    }, [games]);
 
     return (
         <div>

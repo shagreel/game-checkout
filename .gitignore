@@ -24,3 +24,5 @@ yarn-error.log*
 
 wrangler.toml
 .DS_Store
+.idea
+games-ui.iml
