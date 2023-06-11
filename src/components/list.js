@@ -20,7 +20,7 @@ export const List = () => {
     console.log(process.env.REACT_APP_API_ENDPOINT)
     useEffect(() => {
         const getGames = async () => {
-            const resp = await fetch('https://games-stage.shagreel.workers.dev/games/list',//`${process.env.REACT_APP_API_ENDPOINT}/games/list`,
+            const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/list`,
                 {
                     credentials: 'include',
                     headers: {'x-cfp': Cookies.get('CFP-Auth-Key')}
