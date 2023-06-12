@@ -19,26 +19,30 @@ export const List = () => {
     const [games, setGames] = useState([]);
     const [activeGame, setActiveGame] = useState(null);
     useEffect(() => {
-        const mergeBorrowed = async (games) => {
-            const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/borrowed`,
+<<<<<<< HEAD
+        const getGames = async () => {
+            const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/list`,
+=======
+        const getBorrowed = async () => {
+            const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/borrowed/list`,
+>>>>>>> 861e2fb (get borrowed games)
                 {
                     credentials: 'include',
                     headers: {'x-cfp': Cookies.get('CFP-Auth-Key')}
                 });
             const gamesResp = await resp.json();
-            console.log(gamesResp);
-            gamesResp.forEach(b => {
-                console.log(b);
-                const game = games.find(g => g.id == b.id);
-                console.log(game);
-                game['borrowed'] = {...b.borrowed}
-            });
-            setGames(games);
+<<<<<<< HEAD
+            gamesResp.sort((a, b) => a.name.localeCompare(b.name));
+            setGames(gamesResp);
+=======
+            gamesResp.forEach(g => games[g.id]['borrowed'] = g.borrowed);
+>>>>>>> 861e2fb (get borrowed games)
         };
         if (games.length === 0) {
-            mergeBorrowed(gameData);
+            setGames(gameData);
+            getBorrowed();
         }
-    }, [games]);
+    }, []);
 
     return (
         <div>

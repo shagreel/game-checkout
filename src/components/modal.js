@@ -71,7 +71,7 @@ export const InteractionModal = (props) => {
                     <div>
                         <div className="modal-form-input">
                             <div><label htmlFor="nameId">Full Name: </label></div>
-                            <div><input type="text" id="nameId" onInput={e => setName(e.target.value)}/></div>
+                            <div><input type="text" id="nameId" autofocus="autofocus" onInput={e => setName(e.target.value)}/></div>
                         </div>
                         <div className="modal-form-input">
                             <div><label htmlFor="emailId">Email: </label></div>
@@ -80,7 +80,7 @@ export const InteractionModal = (props) => {
                     </div>
                 )}
                 <div className="modal-form-input modal-buttons">
-                    <button className="modal-button" onClick={makeExchange}>
+                    <button className="modal-button" type="submit" onClick={makeExchange}>
                         {label}
                     </button>
                     <button className="modal-button" onClick={props.onClose}>
