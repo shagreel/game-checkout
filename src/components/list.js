@@ -5,14 +5,32 @@ import Cookies from 'js-cookie';
 import gameData from '../data.json';
 
 export const Game = (game, onShow) => {
+    if (game.borrowed) {
+        const date = new Date(Date.parse(game.borrowed.date) + new Date().getTimezoneOffset() * 60_000)
+            .toLocaleDateString('en-us', { day:"numeric", month:"short"});
+        return (
+            <tr>
+                <td><img src={game.cover} className="cover" onClick={onShow}/></td>
+                <td>
+                    <div className="title borrowed" onClick={onShow}>{game.name}</div>
+                    <div>
+                        <span className="borrowed-date">{game.borrowed.name} </span>
+                        <span className="borrowed-date">{game.borrowed.email} </span>
+                        <span className="borrowed-date">{date}</span>
+                    </div>
+                </td>
+            </tr>
+        );
+    }
     return (
         <tr>
             <td><img src={game.cover} className="cover" onClick={onShow}/></td>
             <td>
-                <div onClick={onShow}><span className={`title ${game.borrowed ? 'borrowed' : ''}`}>{game.name}</span>{game.borrowed ? <span className="borrowed-date"> ({new Date(Date.parse(game.borrowed.date)).toLocaleDateString('en-us', { day:"numeric", month:"short"}) })</span> : ''}</div>
+                <div className="title" onClick={onShow}>{game.name}</div>
             </td>
         </tr>
     );
+
 };
 
 export const List = () => {
@@ -26,11 +44,8 @@ export const List = () => {
                     headers: {'x-cfp': Cookies.get('CFP-Auth-Key')}
                 });
             const gamesResp = await resp.json();
-            console.log(gamesResp);
             gamesResp.forEach(b => {
-                console.log(b);
                 const game = games.find(g => g.id == b.id);
-                console.log(game);
                 game['borrowed'] = {...b.borrowed}
             });
             setGames(games);
