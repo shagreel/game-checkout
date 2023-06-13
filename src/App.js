@@ -7,7 +7,7 @@ function App() {
   return (
       <Router>
           <List path="/" />
-          <Admin path="/admin" />
+          <Admin path="/borrowed" />
       </Router>
   );
 }

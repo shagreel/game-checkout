@@ -1,14 +1,16 @@
 import '../App.css';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
+import gameData from '../data.json';
 
-export const Borrowed = (game) => {
+export const Borrowed = (borrowed) => {
+    const game = gameData.find(g => g.id == borrowed.id);
     return (
         <tr>
             <td>{game.name}</td>
-            <td>{game.borrowed.name}</td>
-            <td>{game.borrowed.email}</td>
-            <td>{game.borrowed.date}</td>
+            <td>{borrowed.borrowed.name}</td>
+            <td><a href={'mailto:'+ borrowed.borrowed.email}>{borrowed.borrowed.email}</a></td>
+            <td>{borrowed.borrowed.date}</td>
         </tr>
     );
 };
@@ -18,7 +20,7 @@ export const Admin = () => {
 
     useEffect(() => {
         const getGames = async () => {
-            const resp = await fetch('https://api.chill.ws/games/list',
+            const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/borrowed`,
                 {
                     credentials: 'include',
                     headers: {'x-cfp': Cookies.get('CFP-Auth-Key')}
