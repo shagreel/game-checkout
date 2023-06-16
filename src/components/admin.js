@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import gameData from '../data.json';
 
 export const Borrowed = (borrowed) => {
-    const game = gameData.find(g => g.id == borrowed.id);
+    const game = gameData.find(g => g.id === borrowed.id);
     return (
         <tr>
             <td>{game.name}</td>

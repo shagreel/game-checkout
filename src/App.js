@@ -1,14 +1,14 @@
 import './App.css';
-import { Router } from '@reach/router';
+import {Routes, Route} from "react-router-dom";
 import { List } from './components/list';
 import { Admin } from './components/admin';
 
 function App() {
   return (
-      <Router>
-          <List path="/" />
-          <Admin path="/borrowed" />
-      </Router>
+      <Routes>
+          <Route path="/" element={<List />} />
+          <Route path="/borrowed" element={<Admin/>} />
+      </Routes>
   );
 }
 

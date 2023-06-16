@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { InteractionModal } from "./modal";
 import Cookies from 'js-cookie';
 import gameData from '../data.json';
+import Fuse from "fuse.js";
 
 export const Game = (game, onShow) => {
     if (game.borrowed) {
@@ -10,7 +11,7 @@ export const Game = (game, onShow) => {
             .toLocaleDateString('en-us', { day:"numeric", month:"short"});
         return (
             <tr>
-                <td><img src={game.cover} className="cover" onClick={onShow}/></td>
+                <td><img src={game.cover} className="cover" alt="cover" onClick={onShow}/></td>
                 <td>
                     <div className="title borrowed" onClick={onShow}>{game.name}</div>
                     <div>
@@ -24,7 +25,7 @@ export const Game = (game, onShow) => {
     }
     return (
         <tr>
-            <td><img src={game.cover} className="cover" onClick={onShow}/></td>
+            <td><img src={game.cover} className="cover" alt="cover" onClick={onShow}/></td>
             <td>
                 <div className="title" onClick={onShow}>{game.name}</div>
             </td>
@@ -36,6 +37,9 @@ export const Game = (game, onShow) => {
 export const List = () => {
     const [games, setGames] = useState([]);
     const [activeGame, setActiveGame] = useState(null);
+    const fuse = new Fuse(gameData, {
+        keys: [{name: 'name', weight: 3}, 'borrowed.name', 'borrowed.email']
+    });
     useEffect(() => {
         const mergeBorrowed = async (games) => {
             const resp = await fetch(`${process.env.REACT_APP_API_ENDPOINT}/games/borrowed`,
@@ -45,7 +49,7 @@ export const List = () => {
                 });
             const gamesResp = await resp.json();
             gamesResp.forEach(b => {
-                const game = games.find(g => g.id == b.id);
+                const game = games.find(g => g.id === b.id);
                 game['borrowed'] = {...b.borrowed}
             });
             setGames(games);
@@ -55,11 +59,23 @@ export const List = () => {
         }
     }, [games]);
 
+    const filterGames = (filter) => {
+        const fuseResult = filter.length === 0
+            ? gameData
+            : fuse.search(filter).map(g => g.item);
+        setGames(fuseResult);
+    };
+
     return (
         <div>
             {activeGame && <InteractionModal game={activeGame} onClose={() => setActiveGame(null)}/>}
             <table className="game"><tbody>
-            {games.map(game => Game(game,
+                <tr><td colSpan="2" className="search-container">
+                    <div className="search-form">
+                        <input type="search" id="search" placeholder="Search" onInput={e => filterGames(e.target.value)}></input>
+                    </div>
+                </td></tr>
+                {games.map(game => Game(game,
                 () => setActiveGame(game)))}
             </tbody></table>
         </div>

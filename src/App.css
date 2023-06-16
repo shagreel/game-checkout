@@ -25,6 +25,15 @@
     font-size: 18px;
 }
 
+.search-container {
+    text-align: center;
+}
+
+.search-form input {
+    font-size: x-large;
+    width: 100%;
+}
+
 .modal, .overlay {
     width: 100vw;
     height: 100vh;
