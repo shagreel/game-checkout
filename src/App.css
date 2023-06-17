@@ -31,7 +31,8 @@
 
 .search-form input {
     font-size: x-large;
-    width: 100%;
+    width: 80%;
+    margin-right: 1em;
 }
 
 .modal, .overlay {
