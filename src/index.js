@@ -5,12 +5,24 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createInstance} from "@adobe/alloy";
+import {WebSdkContext} from "./WebSdkContext";
+
+const alloy = createInstance({ name: "alloy" });
+alloy("configure", {
+    "edgeConfigId": "e8922806-0c73-4c26-a4f8-f102f34c9af6",
+    "orgId":"692D3C645C5CDA980A495CB3@AdobeOrg"
+});
+// alloy needs to be global to make the debugger work correctly.
+window.alloy = alloy;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <App />
+          <WebSdkContext.Provider value={alloy}>
+              <App />
+          </WebSdkContext.Provider>
       </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Cookies from "js-cookie";
+import {Tracker, WebSdkContext} from "../WebSdkContext";
 
 export const InteractionModal = (props) => {
+    const alloy = useContext(WebSdkContext);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
 
@@ -29,6 +31,7 @@ export const InteractionModal = (props) => {
                 "date": new Date().toJSON().slice(0, 10)
             };
             props.onClose();
+            Tracker.trackBorrowed(alloy, props.game.name, name, email);
         }).catch(error => {
             console.error('Could not borrow game', error);
         });
@@ -46,6 +49,7 @@ export const InteractionModal = (props) => {
             })
         })
         .then(response => {
+            Tracker.trackReturned(alloy, props.game.name, props.game.borrowed.name, props.game.borrowed.email);
             delete props.game.borrowed;
             props.onClose();
         }).catch(error => {
@@ -60,6 +64,12 @@ export const InteractionModal = (props) => {
           borrowGame();
       }
     };
+
+    useEffect(() => {
+        if (!props.game.borrowed) {
+            Tracker.trackViewed(alloy, props.game.name);
+        }
+    }, [props]);
 
     const label = props.game.borrowed ? "Return" : "Borrow";
     return (

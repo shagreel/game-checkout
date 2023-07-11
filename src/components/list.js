@@ -1,9 +1,10 @@
 import '../App.css';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { InteractionModal } from "./modal";
 import Cookies from 'js-cookie';
 import gameData from '../data.json';
 import Fuse from "fuse.js";
+import {Tracker, WebSdkContext} from "../WebSdkContext";
 
 export const Game = (game, onShow) => {
     if (game.borrowed) {
@@ -65,6 +66,11 @@ export const List = () => {
             : fuse.search(filter).map(g => g.item);
         setGames(fuseResult);
     };
+
+    const alloy = React.useContext(WebSdkContext);
+    useEffect(() => {
+        Tracker.trackPageView(alloy,"Game List");
+    }, []);
 
     return (
         <div>

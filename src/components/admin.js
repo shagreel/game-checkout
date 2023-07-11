@@ -1,7 +1,8 @@
 import '../App.css';
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Cookies from 'js-cookie';
 import gameData from '../data.json';
+import {Tracker, WebSdkContext} from "../WebSdkContext";
 
 export const Borrowed = (borrowed) => {
     const game = gameData.find(g => g.id === borrowed.id);
@@ -34,6 +35,11 @@ export const Admin = () => {
             getGames();
         }
     }, [games]);
+
+    const alloy = useContext(WebSdkContext);
+    useEffect(() => {
+        Tracker.trackPageView(alloy,"Borrowed List");
+    }, []);
 
     return (
         <div>
