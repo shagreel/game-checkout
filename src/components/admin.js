@@ -1,8 +1,10 @@
 import '../App.css';
 import React, {useContext, useEffect, useState} from 'react';
 import Cookies from 'js-cookie';
-import gameData from '../data.json';
 import {Tracker, WebSdkContext} from "../WebSdkContext";
+
+const gameData = await fetch("/games.json")
+    .then((response) => response.json());
 
 export const Borrowed = (borrowed) => {
     const game = gameData.find(g => g.id === borrowed.id);

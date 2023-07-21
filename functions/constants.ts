@@ -13,4 +13,4 @@ export const CFP_COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
  * Paths that don't require authentication.
  * The /cfp_login path must be included.
  */
-export const CFP_ALLOWED_PATHS = ['/cfp_login','/pico.min.css','/favicon.ico', '/manifest.json'];
+export const CFP_ALLOWED_PATHS = ['/cfp_login','/pico.min.css','/favicon.ico', '/manifest.json', '/games.json'];

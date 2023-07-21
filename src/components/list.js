@@ -2,9 +2,11 @@ import '../App.css';
 import React, {useEffect, useState} from 'react';
 import { InteractionModal } from "./modal";
 import Cookies from 'js-cookie';
-import gameData from '../data.json';
 import Fuse from "fuse.js";
 import {Tracker, WebSdkContext} from "../WebSdkContext";
+
+const gameData = await fetch("/games.json")
+    .then((response) => response.json());
 
 export const Game = (game, onShow) => {
     if (game.borrowed) {
@@ -69,21 +71,26 @@ export const List = () => {
 
     const alloy = React.useContext(WebSdkContext);
     useEffect(() => {
-        Tracker.trackPageView(alloy,"Game List");
+        Tracker.trackPageView(alloy, "Game List");
     }, []);
 
     return (
         <div>
             {activeGame && <InteractionModal game={activeGame} onClose={() => setActiveGame(null)}/>}
-            <table className="game"><tbody>
-                <tr><td colSpan="2" className="search-container">
-                    <div className="search-form">
-                        <input type="search" id="search" placeholder="Search" onInput={e => filterGames(e.target.value)}></input>
-                    </div>
-                </td></tr>
+            <table className="game">
+                <tbody>
+                <tr>
+                    <td colSpan="2" className="search-container">
+                        <div className="search-form">
+                            <input type="search" id="search" placeholder="Search"
+                                   onInput={e => filterGames(e.target.value)}></input>
+                        </div>
+                    </td>
+                </tr>
                 {games.map(game => Game(game,
-                () => setActiveGame(game)))}
-            </tbody></table>
+                    () => setActiveGame(game)))}
+                </tbody>
+            </table>
         </div>
     );
 };
