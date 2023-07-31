@@ -26,6 +26,7 @@ export async function onRequestOptions(context: {
 function isPublic(pathname) {
     if (CFP_ALLOWED_PATHS.includes(pathname)) return true;
     if (pathname.startsWith('/images')) return true;
+    if (!pathname.endsWith('.html')) return true;
     return false;
 }
 

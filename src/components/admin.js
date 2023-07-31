@@ -41,7 +41,7 @@ export const Admin = () => {
     const alloy = useContext(WebSdkContext);
     useEffect(() => {
         Tracker.trackPageView(alloy,"Borrowed List");
-    }, []);
+    }, [alloy]);
 
     return (
         <div>

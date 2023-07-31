@@ -72,7 +72,7 @@ export const List = () => {
     const alloy = React.useContext(WebSdkContext);
     useEffect(() => {
         Tracker.trackPageView(alloy, "Game List");
-    }, []);
+    }, [alloy]);
 
     return (
         <div>

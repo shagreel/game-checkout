@@ -69,7 +69,7 @@ export const InteractionModal = (props) => {
         if (!props.game.borrowed) {
             Tracker.trackViewed(alloy, props.game.name);
         }
-    }, [props]);
+    }, [props, alloy]);
 
     const label = props.game.borrowed ? "Return" : "Borrow";
     return (
