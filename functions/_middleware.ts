@@ -24,11 +24,8 @@ export async function onRequestOptions(context: {
 }
 
 function isPublic(pathname) {
-    if (CFP_ALLOWED_PATHS.includes(pathname) ||
-        pathname.startsWith('/images')||
-        pathname.startsWith('/static')||
-        !pathname.endsWith('.html')) return true;
-    return false;
+    return !!(CFP_ALLOWED_PATHS.includes(pathname) ||
+        pathname.startsWith('/images'));
 }
 
 export async function onRequest(context: {
