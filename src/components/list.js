@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import Fuse from "fuse.js";
 import {Tracker, WebSdkContext} from "../WebSdkContext";
 
-const gameData = await fetch("/games.json")
+const gameData = await fetch("https://public.chill.ws/games.json")
     .then((response) => response.json());
 
 export const Game = (game, onShow) => {

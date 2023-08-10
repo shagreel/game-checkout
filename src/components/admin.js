@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Cookies from 'js-cookie';
 import {Tracker, WebSdkContext} from "../WebSdkContext";
 
-const gameData = await fetch("/games.json")
+const gameData = await fetch("https://public.chill.ws/games.json")
     .then((response) => response.json());
 
 export const Borrowed = (borrowed) => {
