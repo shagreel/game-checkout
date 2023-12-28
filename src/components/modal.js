@@ -24,7 +24,8 @@ export const InteractionModal = (props) => {
                 }
             })
         })
-        .then(response => {
+        .then(response => response.json())
+        .then(json => {
             console.log(response.json());
             props.game['borrowed'] = {
                 "name": name,
