@@ -26,6 +26,7 @@ export const InteractionModal = (props) => {
         })
         .then(response => response.json())
         .then(json => {
+            debugger;
             let result = json[0];
             console.log(result.borrowed);
             console.log(result.borrowed.name);
