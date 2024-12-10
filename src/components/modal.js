@@ -26,13 +26,12 @@ export const InteractionModal = (props) => {
         })
         .then(response => response.json())
         .then(json => {
-            debugger;
-            let result = json[0];
-            console.log(result.borrowed);
-            console.log(result.borrowed.name);
-            props.game['borrowed'] = result.borrowed;
+            console.log(json);
+            console.log(json['borrowed']);
+            console.log(json['borrowed']['name']);
+            props.game['borrowed'] = json['borrowed'];
             props.onClose();
-            if (result.borrowed.name === name) {
+            if (json['borrowed']['name'] === name) {
                 Tracker.trackBorrowed(alloy, props.game.name, name, email);
             }
         }).catch(error => {
