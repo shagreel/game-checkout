@@ -26,9 +26,6 @@ export const InteractionModal = (props) => {
         })
         .then(response => response.json())
         .then(json => {
-            console.log(json);
-            console.log(json['borrowed']);
-            console.log(json['borrowed']['name']);
             props.game['borrowed'] = json['borrowed'];
             props.onClose();
             if (json['borrowed']['name'] === name) {
