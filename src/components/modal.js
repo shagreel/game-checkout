@@ -24,12 +24,15 @@ export const InteractionModal = (props) => {
                 }
             })
         })
-        .then(response => response.json())
-        .then(json => {
+        .then(response => {
+            let json = response.json()
             props.game['borrowed'] = json.borrowed;
             props.onClose();
-            Tracker.trackBorrowed(alloy, props.game.name, name, email);
+            if (json.borrowed.name === name) {
+                Tracker.trackBorrowed(alloy, props.game.name, name, email);
+            }
         }).catch(error => {
+            props.onClose();
             console.error('Could not borrow game', error);
         });
     };
